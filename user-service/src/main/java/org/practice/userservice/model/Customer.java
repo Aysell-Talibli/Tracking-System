@@ -1,0 +1,47 @@
+package org.practice.userservice.model;
+import jakarta.persistence.*;
+import lombok.*;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.UUID;
+
+@Entity
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "customers", schema = "user_service")
+public class Customer {
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    @NotNull
+    @Column(name = "first_name")
+    private String firstName;
+
+    @NotNull
+    @Column(name = "last_name")
+    private String lastName;
+
+    
+    @Column(name = "password")
+    private String password;
+
+    @NotNull
+    @Column(unique = true, name = "phone_number")
+    private String phoneNumber;
+
+    @NotNull
+    @Column(unique = true, name = "email")
+    private String email;
+
+    @NotNull
+    @Column(name = "role")
+    private String role;
+
+    private String address;
+
+
+}

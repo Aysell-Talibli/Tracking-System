@@ -1,0 +1,16 @@
+services:
+  postgres-db:
+    image: postgres:latest
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: tracking_system
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - tracking-system-data:/var/lib/postgresql/data
+
+volumes:
+  tracking-system-data:
+    driver: local

@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - changeSet:
+      id: create-delivery-service-schema
+      author: Aysel Talibli
+      changes:
+        - sql:
+            sql: CREATE SCHEMA IF NOT EXISTS delivery_service
