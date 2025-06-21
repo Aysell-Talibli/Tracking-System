@@ -6,6 +6,7 @@ import org.practice.userservice.dto.LoginRequestDto;
 import org.practice.userservice.dto.LoginResponseDto;
 import org.practice.userservice.dto.CustomerDto;
 import org.practice.userservice.service.CustomerService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,8 @@ public class CustomerController {
     }
     @PostMapping("/login")
     public ResponseEntity<LoginResponseDto> login(@RequestBody @Valid LoginRequestDto loginRequestDto){
-        return customerService.login(loginRequestDto);
+        LoginResponseDto loginResponseDto=customerService.login(loginRequestDto);
+        return new ResponseEntity<>(loginResponseDto, HttpStatus.OK);
 
     }
 
