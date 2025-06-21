@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.practice.deliveryservice.model.enums.DeliveryStatus;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -20,8 +21,8 @@ import java.time.LocalDateTime;
 public class Delivery {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    private UUID id;
 
 //    @NotNull
 //    @Column(name="package_id", unique = true)
