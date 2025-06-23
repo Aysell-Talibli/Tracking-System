@@ -9,7 +9,7 @@ api:
 spring:
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     open-in-view: true
     show-sql: true
   liquibase:
