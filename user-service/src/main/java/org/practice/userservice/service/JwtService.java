@@ -9,9 +9,9 @@ import java.util.*;
 public interface JwtService {
     boolean validateToken(String token, UserDetails userDetails);
 
-    String generateToken(String email);
+    String generateToken(String email, Collection<? extends GrantedAuthority>authorities);
 
-    String createToken(Map<String, Object> claimsn, String email);
+    String createToken(Map<String, Object> claims, String email);
 
     Claims extractAllClaims(String token);
 

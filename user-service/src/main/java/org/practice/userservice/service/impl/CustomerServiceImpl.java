@@ -17,7 +17,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -48,7 +50,8 @@ public class CustomerServiceImpl implements CustomerService {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequestDto.getEmail(),
                         loginRequestDto.getPassword()));
-        String token = jwtService.generateToken(loginRequestDto.getEmail());
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        String token = jwtService.generateToken(loginRequestDto.getEmail(),authorities);
         LoginResponseDto authResponseDto = new LoginResponseDto(loginRequestDto.getEmail(), token);
         return authResponseDto;
 

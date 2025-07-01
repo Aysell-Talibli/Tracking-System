@@ -8,12 +8,14 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.practice.userservice.service.JwtService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.config.core.GrantedAuthorityDefaults;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class JwtServiceImpl implements JwtService {
@@ -24,8 +26,9 @@ public class JwtServiceImpl implements JwtService {
     private String SECRET;
 
     @Override
-    public String generateToken(String email) {
+    public String generateToken(String email, Collection<? extends GrantedAuthority>authorities) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("roles",authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
         return createToken(claims, email);
     }
 

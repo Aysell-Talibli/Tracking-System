@@ -8,6 +8,7 @@ import org.practice.userservice.dto.CustomerDto;
 import org.practice.userservice.service.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,9 +30,16 @@ public class CustomerController {
 
     }
 
-    @GetMapping("/profile")
+    @GetMapping("/users/me")
+    @PreAuthorize("hasRole('USER')")
     public String profile() {
         return "User profile";
+    }
+
+    @GetMapping("/admin/users")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String admin() {
+        return "Admin profile";
     }
 
 }
