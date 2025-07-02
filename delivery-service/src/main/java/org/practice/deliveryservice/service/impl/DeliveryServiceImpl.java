@@ -20,26 +20,32 @@ public class DeliveryServiceImpl implements DeliveryService {
     private final KafkaProducerService kafkaProducerService;
 
     @Override
-    public Delivery createDelivery(DeliveryDto deliveryDto) {
+    public Delivery createDelivery(DeliveryDto deliveryDto, String email) {
         Delivery delivery=Delivery.builder()
-                .senderEmail(deliveryDto.getSenderEmail())
+                .senderEmail(email)
                 .recipientEmail(deliveryDto.getReceiverEmail())
                 .currentLocation(deliveryDto.getLocation())
                 .destination(deliveryDto.getDestination())
                 .status(DeliveryStatus.CREATED)
                 .createdAt(LocalDateTime.now())
-                .tracking_number("PKG-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase())
+                .trackingNumber("PKG-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase())
                 .build();
 
         Delivery savedDelivery = deliveryRepository.save(delivery);
 
         DeliveryEventDto deliveryEventDto=new DeliveryEventDto(
-                savedDelivery.getTracking_number(),
+                savedDelivery.getTrackingNumber(),
                 savedDelivery.getSenderEmail(),
                 savedDelivery.getRecipientEmail(),
                 savedDelivery.getStatus().toString()
         );
         kafkaProducerService.sendDeliveryEvent(deliveryEventDto);
         return savedDelivery;
+    }
+
+    @Override
+    public Delivery trackPackage(String trackingNumber) {
+        Delivery delivery=deliveryRepository.findByTrackingNumber(trackingNumber);
+        return delivery;
     }
 }

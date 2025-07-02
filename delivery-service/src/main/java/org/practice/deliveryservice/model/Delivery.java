@@ -30,7 +30,7 @@ public class Delivery {
 
     @NotNull
     @Column(name="tracking_number", unique = true)
-    private String tracking_number;
+    private String trackingNumber;
 
     @NotNull
     @Column(name="sender_email")
