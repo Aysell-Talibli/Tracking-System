@@ -1,7 +1,6 @@
 server:
-  port: 8080
-  servlet:
-    context-path: /user-service
+  port: 8081
+
 api:
   base:
     url: /api/
@@ -17,6 +16,9 @@ spring:
     change-log: classpath:db.changelog/db.changelog.yaml
     default-schema: user_service
 
+  jwt-key: bohXE2OGuhrk1Z32679iS9opXXvwYr2/g1/jaWrfwBsLNBEf7/ztx0VngupILXUy3RwpdCHzU3Qh2WZUejlB98QVU6aRjN2iEarrTtzHtxIbnVL5ckxb7cWPaeZkASzt+Rud8FzixpznH3nfm1UXbehUWzytfb8srEBTOVWhjLg=
+
+
 
   datasource:
     url: jdbc:postgresql://localhost:5432/tracking_system
@@ -30,3 +32,14 @@ spring:
     compose:
       enabled: true
       file: user-service/docker/docker-compose.yaml
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+info:
+  title: User Service API
+  description: APIs for managing users
+  version: 1.0.0

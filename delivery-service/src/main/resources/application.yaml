@@ -32,3 +32,15 @@ spring:
     compose:
       enabled: true
       file: delivery-service/docker/docker-compose.yaml
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+info:
+  title: Delivery Service API
+  description: APIs for managing deliveries
+  version: 1.0.0
+

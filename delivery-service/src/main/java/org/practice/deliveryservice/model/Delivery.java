@@ -3,10 +3,7 @@ package org.practice.deliveryservice.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.practice.deliveryservice.model.enums.DeliveryStatus;
 
 import java.time.LocalDateTime;
@@ -17,6 +14,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 @Table(name="deliveries", schema = "delivery_service")
 public class Delivery {
 

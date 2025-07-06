@@ -1,7 +1,9 @@
 package org.practice.userservice.controller;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.practice.userservice.dto.CustomerProfileDto;
 import org.practice.userservice.dto.LoginRequestDto;
 import org.practice.userservice.dto.LoginResponseDto;
 import org.practice.userservice.dto.CustomerDto;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/")
+@CrossOrigin(origins = "http://localhost:8080")
 public class CustomerController {
     private final CustomerService customerService;
 
@@ -31,12 +34,15 @@ public class CustomerController {
     }
 
     @GetMapping("/users/me")
+    @SecurityRequirement(name = "bearerAuth")
     @PreAuthorize("hasRole('USER')")
-    public String profile() {
-        return "User profile";
+    public ResponseEntity<CustomerProfileDto> profile( @RequestHeader("Authorization") String authHeader) {
+
+        return ResponseEntity.ok(customerService.getProfile(authHeader));
     }
 
     @GetMapping("/admin/users")
+    @SecurityRequirement(name = "bearerAuth")
     @PreAuthorize("hasRole('ADMIN')")
     public String admin() {
         return "Admin profile";

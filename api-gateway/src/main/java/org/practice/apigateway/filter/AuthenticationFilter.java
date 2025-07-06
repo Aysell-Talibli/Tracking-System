@@ -30,19 +30,27 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
            ServerHttpRequest request= exchange.getRequest();
            String path=request.getURI().getPath();
 
-           if(!validator.isSecured(request) || request.getMethod().equals(HttpMethod.OPTIONS)){
+           if(!validator.isSecured(request)
+                   || path.contains("/v3/api-docs")
+                   || path.contains("/swagger-ui")
+                   || path.contains("/swagger-resources")
+                   || path.contains("/webjars")
+                   || path.endsWith(".html")
+                   || path.contains("/auth")
+                   || request.getMethod().equals(HttpMethod.OPTIONS)){
+
                return chain.filter(exchange);
            }
-           if(request.getURI().getPath().contains("/auth") ||
-                   request.getMethod().equals(HttpMethod.OPTIONS)){
-               return chain.filter(exchange);
-           }
+//           if(request.getURI().getPath().contains("/auth") ||
+//                   request.getMethod().equals(HttpMethod.OPTIONS)){
+//               return chain.filter(exchange);
+//           }
            String authHeader=request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
            if(authHeader == null || !authHeader.startsWith("Bearer ")){
                throw new RuntimeException("Missing or invalid header");
            }
            String token=authHeader.substring(7);
-
+           String email= jwtUtil.extractUserEmail(token);
            List<String> roles=jwtUtil.extractRoles(token);
            System.out.println("user roles: "+roles);
 
@@ -56,6 +64,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
            ServerHttpRequest mutatedRequest = exchange.getRequest()
                    .mutate()
                    .header("Authorization", authHeader)
+                   .header("X-User-Email", email)
                    .build();
 
            return chain.filter(exchange.mutate().request(mutatedRequest).build());

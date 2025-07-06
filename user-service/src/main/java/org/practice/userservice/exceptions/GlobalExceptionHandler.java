@@ -9,18 +9,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.Map;
 
-@RestControllerAdvice
-public class GlobalExceptionHandler {
-
-    @ExceptionHandler(UsernameNotFoundException.class)
-    public ResponseEntity<?> handleUsernameNotFound(UsernameNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("error", ex.getMessage()));
-    }
-
-    @ExceptionHandler(BadCredentialsException.class)
-    public ResponseEntity<?> handleBadCredentials(BadCredentialsException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("error", "Invalid email or password"));
-    }
-}
+//@RestControllerAdvice
+//public class GlobalExceptionHandler {
+//
+//    @ExceptionHandler(UsernameNotFoundException.class)
+//    public ResponseEntity<?> handleUsernameNotFound(UsernameNotFoundException ex) {
+//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+//                .body(Map.of("error", ex.getMessage()));
+//    }
+//
+//    @ExceptionHandler(BadCredentialsException.class)
+//    public ResponseEntity<?> handleBadCredentials(BadCredentialsException ex) {
+//        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+//                .body(Map.of("error", "Invalid email or password"));
+//    }
+//}

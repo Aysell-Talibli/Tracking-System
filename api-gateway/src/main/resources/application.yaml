@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+
+  jwt-key: bohXE2OGuhrk1Z32679iS9opXXvwYr2/g1/jaWrfwBsLNBEf7/ztx0VngupILXUy3RwpdCHzU3Qh2WZUejlB98QVU6aRjN2iEarrTtzHtxIbnVL5ckxb7cWPaeZkASzt+Rud8FzixpznH3nfm1UXbehUWzytfb8srEBTOVWhjLg=
   application:
     name: api-gateway
   cloud:
@@ -15,8 +17,21 @@ spring:
             - StripPrefix=1
 
         - id: delivery-service
-          uri: lb://DELIVERY-SERVICE
+          uri: http://127.0.0.1:8082
           predicates:
-            - Path=/api/deliveries/**
+            - Path=/delivery-service/**
           filters:
-            - AuthenticationFilter
+            - StripPrefix=1
+            - name: AuthenticationFilter
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: user-service
+        url: /user-service/v3/api-docs
+      - name: delivery-service
+        url: /delivery-service/v3/api-docs
+
+

@@ -1,5 +1,6 @@
 package org.practice.userservice.service;
 
+import org.practice.userservice.dto.CustomerProfileDto;
 import org.practice.userservice.dto.LoginResponseDto;
 import org.practice.userservice.dto.CustomerDto;
 import org.practice.userservice.dto.LoginRequestDto;
@@ -10,4 +11,6 @@ public interface CustomerService {
     Customer saveCustomer(CustomerDto customerDto);
 
     LoginResponseDto login(LoginRequestDto loginRequestDto);
+
+    CustomerProfileDto getProfile(String authHeader);
 }

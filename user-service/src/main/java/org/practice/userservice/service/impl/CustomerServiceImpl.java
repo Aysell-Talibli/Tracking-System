@@ -1,6 +1,7 @@
 package org.practice.userservice.service.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.practice.userservice.dto.CustomerProfileDto;
 import org.practice.userservice.dto.LoginResponseDto;
 import org.practice.userservice.dto.CustomerDto;
 import org.practice.userservice.dto.LoginRequestDto;
@@ -56,4 +57,24 @@ public class CustomerServiceImpl implements CustomerService {
         return authResponseDto;
 
     }
+    @Override
+    public CustomerProfileDto getProfile(String authHeader){
+       if(authHeader == null || !authHeader.startsWith("Bearer ")){
+           throw new RuntimeException("Missing or invalid Authorization Header");
+       }
+
+       String token=authHeader.substring(7);
+       String email= jwtService.extractEmail(token);
+        Customer customer = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("Customer not found"));
+
+       return new CustomerProfileDto(
+               customer.getFirstName(),
+               customer.getLastName(),
+               customer.getEmail(),
+               customer.getPhoneNumber(),
+               customer.getRole()
+       );
+    }
+
 }
