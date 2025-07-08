@@ -23,10 +23,6 @@ public class Delivery {
     @GeneratedValue
     private UUID id;
 
-//    @NotNull
-//    @Column(name="package_id", unique = true)
-//    private String packageId; // Unique tracking code like "PKG123"
-
     @NotNull
     @Column(name="tracking_number", unique = true)
     private String trackingNumber;
