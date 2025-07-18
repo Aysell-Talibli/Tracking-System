@@ -1,0 +1,64 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_tracking_histories_table
+      author: Aysel
+      changes:
+        - createTable:
+            schemaName: delivery_service
+            tableName: tracking_history
+            columns:
+              - column:
+                  name: id
+                  type: uuid
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: location
+                  type: varchar(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  constraints:
+                    nullable: false
+              - column:
+                  name: delivery_id
+                  type: UUID
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: tracking_history
+            baseColumnNames: delivery_id
+            referencedTableName: deliveries
+            referencedColumnNames: id
+            constraintName: fk_tracking_history_delivery
+
+
+  - changeSet:
+      id: add-updated-at-column
+      author: Aysel
+      changes:
+        - addColumn:
+            tableName: tracking_history
+            columns:
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+
+  - changeSet:
+      id: add-timestamp-column
+      author: Aysel
+      changes:
+        - addColumn:
+            tableName: tracking_history
+            columns:
+              - column:
+                  name: timestamp
+                  type: TIMESTAMP

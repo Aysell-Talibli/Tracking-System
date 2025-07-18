@@ -31,6 +31,7 @@ public class SecurityConfig {
                                 "/swagger-resources/**",
                                 "/webjars/**").permitAll()
                         .requestMatchers("/update/status/**").hasRole("ADMIN")
+                        .requestMatchers("/track/**").hasRole("USER")
                         .anyRequest().authenticated()
 
                 )

@@ -9,9 +9,8 @@ import java.util.UUID;
 
 public interface DeliveryService {
 
-    DeliveryResponseDto createDelivery(DeliveryDto deliveryDto, String email);
-    Delivery trackPackage(String trackingNumber);
+    Delivery createDelivery(DeliveryDto deliveryDto, String email);
 
-    Delivery updateDeliveryStatus(UUID deliveryId, UpdatedDeliveryDto updatedDeliveryDto);
+    UpdatedDeliveryDto updateDeliveryStatus(UUID deliveryId, UpdatedDeliveryDto updatedDeliveryDto);
 
 }

@@ -8,8 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.practice.deliveryservice.dto.DeliveryDto;
 import org.practice.deliveryservice.dto.DeliveryResponseDto;
 import org.practice.deliveryservice.dto.UpdatedDeliveryDto;
+import org.practice.deliveryservice.dto.response.TrackingResponseDto;
 import org.practice.deliveryservice.model.Delivery;
 import org.practice.deliveryservice.service.DeliveryService;
+import org.practice.deliveryservice.service.TrackingService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,21 +28,22 @@ import java.util.UUID;
 @RequestMapping("/")
 public class DeliveryController {
     private final DeliveryService deliveryService;
+    private final TrackingService trackingService;
 
     @PostMapping("delivery/create")
-    public ResponseEntity<DeliveryResponseDto> createDelivery(@RequestBody @Valid DeliveryDto deliveryDto,
+    public ResponseEntity<Delivery> createDelivery(@RequestBody @Valid DeliveryDto deliveryDto,
                                                               @RequestHeader("X-User-Email") String email){
         return ResponseEntity.ok(deliveryService.createDelivery(deliveryDto, email));
     }
 
     @GetMapping("track/{trackingNumber}")
-    public ResponseEntity<Delivery> trackPackage(@PathVariable @NotBlank String trackingNumber){
-        return ResponseEntity.ok(deliveryService.trackPackage(trackingNumber));
+    public ResponseEntity<TrackingResponseDto> trackPackage(@PathVariable @NotBlank String trackingNumber){
+        return ResponseEntity.ok(trackingService.trackPackage(trackingNumber));
     }
 
     @PutMapping("update/status/{id}")
     @SecurityRequirement(name = "bearerAuth")
-    public ResponseEntity<Delivery> updateStatus(@PathVariable UUID id,
+    public ResponseEntity<UpdatedDeliveryDto> updateStatus(@PathVariable UUID id,
                                                  @RequestBody @Valid UpdatedDeliveryDto updatedDeliveryDto){
         return ResponseEntity.ok(deliveryService.updateDeliveryStatus(id, updatedDeliveryDto));
     }

@@ -7,6 +7,7 @@ import lombok.*;
 import org.practice.deliveryservice.model.enums.DeliveryStatus;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -51,5 +52,9 @@ public class Delivery {
     @NotNull
     @Column(name="created_at")
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OrderBy("timestamp DESC")
+    private List<TrackingHistory> trackingHistory;
 }
 
