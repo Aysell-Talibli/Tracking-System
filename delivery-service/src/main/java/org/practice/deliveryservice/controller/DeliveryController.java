@@ -28,7 +28,6 @@ import java.util.UUID;
 @RequestMapping("/")
 public class DeliveryController {
     private final DeliveryService deliveryService;
-    private final TrackingService trackingService;
 
     @PostMapping("delivery/create")
     public ResponseEntity<Delivery> createDelivery(@RequestBody @Valid DeliveryDto deliveryDto,
@@ -36,10 +35,10 @@ public class DeliveryController {
         return ResponseEntity.ok(deliveryService.createDelivery(deliveryDto, email));
     }
 
-    @GetMapping("track/{trackingNumber}")
-    public ResponseEntity<TrackingResponseDto> trackPackage(@PathVariable @NotBlank String trackingNumber){
-        return ResponseEntity.ok(trackingService.trackPackage(trackingNumber));
-    }
+//    @GetMapping("track/{trackingNumber}")
+//    public ResponseEntity<TrackingResponseDto> trackPackage(@PathVariable @NotBlank String trackingNumber){
+//        return ResponseEntity.ok(trackingService.trackPackage(trackingNumber));
+//    }
 
     @PutMapping("update/status/{id}")
     @SecurityRequirement(name = "bearerAuth")
