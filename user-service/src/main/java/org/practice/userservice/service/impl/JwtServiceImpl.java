@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Service
 public class JwtServiceImpl implements JwtService {
 
-    private final long expiration = 86400000;
+    private final long expiration = 7*24 * 60 * 60 * 1000L;
 
     @Value("${spring.jwt-key}")
     private String SECRET;
