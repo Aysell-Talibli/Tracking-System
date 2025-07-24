@@ -41,3 +41,22 @@ A Spring Boot based microservices application that allows users to register, cre
 - Receive email when delivery is successfully created
 - Admin can update the delivery status (e.g., PENDING → SHIPPED → DELIVERED)
 - Services communicate asynchronously via Kafka
+
+
+## PREREQUISITES
+
+**This project runs by Docker engine.**
+
+You **must** first run these commands:
+
+```bash
+cd delivery-service/docker
+docker-compose up -d
+
+
+cd ../../user-service/docker
+docker-compose up -d
+
+
+
+
