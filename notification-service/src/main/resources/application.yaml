@@ -9,3 +9,14 @@ api:
 spring:
   kafka:
     bootstrap-servers: localhost:9092
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME:delivery.tracking05@gmail.com}
+    password: ${EMAIL_PASSWORD:pkjz cmlh ryos myfw}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true

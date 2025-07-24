@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public interface DeliveryService {
 
-    Delivery createDelivery(DeliveryDto deliveryDto, String email);
+    DeliveryResponseDto createDelivery(DeliveryDto deliveryDto, String email);
 
     UpdatedDeliveryDto updateDeliveryStatus(UUID deliveryId, UpdatedDeliveryDto updatedDeliveryDto);
 

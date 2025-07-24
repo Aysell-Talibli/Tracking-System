@@ -30,7 +30,7 @@ public class DeliveryController {
     private final DeliveryService deliveryService;
 
     @PostMapping("delivery/create")
-    public ResponseEntity<Delivery> createDelivery(@RequestBody @Valid DeliveryDto deliveryDto,
+    public ResponseEntity<DeliveryResponseDto> createDelivery(@RequestBody @Valid DeliveryDto deliveryDto,
                                                               @RequestHeader("X-User-Email") String email){
         return ResponseEntity.ok(deliveryService.createDelivery(deliveryDto, email));
     }

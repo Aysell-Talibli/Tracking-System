@@ -8,7 +8,7 @@ import org.practice.deliveryservice.model.Delivery;
 @Mapper(componentModel = "spring")
 public interface DeliveryMapper {
 
-    DeliveryResponseDto toDto(Delivery delivery);
-    UpdatedDeliveryDto toUpdatedDto(Delivery delivery);
+    DeliveryResponseDto toCreatedDeliveryDto(Delivery delivery);
+    UpdatedDeliveryDto toUpdatedDeliveryDto(Delivery delivery);
 
 }

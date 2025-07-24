@@ -10,6 +10,7 @@ import java.util.Map;
 public class AuthorizationConfig {
     private Map<String, List<String>> pathRoles = Map.of(
             "/update/status/**", List.of("ADMIN", "ROLE_ADMIN"),
+            "/track/**", List.of("USER", "ROLE_USER"),
             "/users/me", List.of("USER", "ADMIN")
     );
 }

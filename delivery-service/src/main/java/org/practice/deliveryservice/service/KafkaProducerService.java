@@ -13,17 +13,23 @@ public class KafkaProducerService {
     private final KafkaTemplate<String,String> kafkaTemplate;
 
     public void sendDeliveryEvent(DeliveryEventDto deliveryEventDto){
-        String json=convertToJson(deliveryEventDto);
-        kafkaTemplate.send("delivery-events",json);
-    }
-
-    private String convertToJson(DeliveryEventDto deliveryEventDto) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            return mapper.writeValueAsString(deliveryEventDto);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Failed to convert event to JSON", e);
+        try{
+        ObjectMapper mapper = new ObjectMapper();
+        String message=mapper.writeValueAsString(deliveryEventDto);
+//        String json=convertToJson(deliveryEventDto);
+        kafkaTemplate.send("delivery-events",message);}
+        catch (Exception e){
+            System.out.println("failed to send delivery event ");
         }
     }
+
+//    private String convertToJson(DeliveryEventDto deliveryEventDto) {
+//        try {
+//            ObjectMapper mapper = new ObjectMapper();
+//            return mapper.writeValueAsString(deliveryEventDto);
+//        } catch (JsonProcessingException e) {
+//            throw new RuntimeException("Failed to convert event to JSON", e);
+//        }
+//    }
 
 }

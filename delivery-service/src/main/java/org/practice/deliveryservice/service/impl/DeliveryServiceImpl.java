@@ -28,7 +28,7 @@ public class DeliveryServiceImpl implements DeliveryService {
     private final ModelMapper modelMapper;
 
     @Override
-    public Delivery createDelivery(DeliveryDto deliveryDto, String email) {
+    public DeliveryResponseDto createDelivery(DeliveryDto deliveryDto, String email) {
         Delivery delivery=Delivery.builder()
                 .senderEmail(email)
                 .recipientEmail(deliveryDto.getReceiverEmail())
@@ -48,7 +48,7 @@ public class DeliveryServiceImpl implements DeliveryService {
                 savedDelivery.getStatus().toString()
         );
         kafkaProducerService.sendDeliveryEvent(deliveryEventDto);
-        return savedDelivery;
+        return deliveryMapper.toCreatedDeliveryDto(savedDelivery);
     }
 
 
@@ -73,7 +73,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 //
 //        );
 //        kafkaProducerService.sendDeliveryEvent(deliveryEventDto);
-        return deliveryMapper.toUpdatedDto(updatedDelivery);
+        return deliveryMapper.toUpdatedDeliveryDto(updatedDelivery);
 
     }
 
